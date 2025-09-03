@@ -36,6 +36,48 @@
   - CLS(Cumulative layout Shift)
     - 페이지가 로딩될 때 레이아웃이 갑자기 움직이는 정도
 
+## npm과 pnpm차이점
+1. npm (Node Package Manager)
+    - Node.js 기본 패키지 매니저
+    - 의존성 설치 시 중복된 패키지를 각 프로젝트마다 복사 → 디스크 용량 많이 차지
+
+2. pnpm (Performant npm)
+    - npm 대안 패키지 매니저
+    - 하드링크(심볼릭 링크) 방식 사용 → 패키지를 한 번만 저장하고  
+    여러프로젝트에서 공유
+    - 설치 속도 빠르고 디스크 공간 절약
+    - 설치방법
+      ```bash 
+      npm install -g pnpm 
+      ```
+
+3. 명령어 차이점
+    ```bash
+      # 프로젝트 초기화	
+      npm init -y	    
+      pnpm init
+
+      # 패키지 설치	
+      npm install	
+      pnpm install
+
+      # 특정 패키지 설치	
+      npm install react	
+      pnpm add react
+
+      # 개발 의존성 설치	
+      npm install -D typescript	
+      pnpm add -D typescript
+
+      # 패키지 제거	
+      npm uninstall react	
+      pnpm remove react
+
+      # 실행	
+      npm run dev	
+      pnpm dev
+    ```
+  
 # 08월 27일(1주차)
 ## next.js의 라우팅 방식
   - Pages Router
