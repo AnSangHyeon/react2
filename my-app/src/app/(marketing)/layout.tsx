@@ -6,7 +6,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <header>marketing header</header>
         {children}
+        <footer>marketing footer</footer>
       </body>
     </html>
   );
