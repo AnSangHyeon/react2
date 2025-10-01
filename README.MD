@@ -1,4 +1,45 @@
 # 202330219 안상현
+
+# 10월 01일(6주차)
+## generateStaticParams
+- 어떤 동적 페이지들을 미리 만들지 알려주는 함수
+- 예제:  
+  ```tsx
+  // [slug]/data.tsx
+  export const posts = [
+    { id: "1", title: "첫 번째 글", content: "내용 1" },
+    { id: "2", title: "두 번째 글", content: "내용 2" }
+  ];
+
+  // [slug]/page.tsx
+  import { posts } from "./data";
+
+  interface BlogPageProps {
+    params: { Promise<{slug: string}> };
+  }
+
+  // Next.js가 빌드 시 호출
+  export async function generateStaticParams() {
+    return posts.map(post => ({
+      slug: post.id, // id === [slug]경로에 들어갈 값
+    }));
+  }
+
+  export default function BlogPage({ params }: BlogPageProps) {
+    const post = posts.find(p => p.id === params.slug);
+
+    if (!post) return <p>글을 찾을 수 없습니다.</p>;
+
+    return (
+      <div>
+        <h1>{post.title}</h1>
+        <p>{post.content}</p>
+      </div>
+    );
+  }
+
+  ```
+
 # 09월 24일(5주차)
 ## 정적 렌더링(SSG)
 - 페이지를 빌드 시점에 미리 HTML로 만들어서, 요청 시 서버 부담 없이 빠르게 제공하는 방식
