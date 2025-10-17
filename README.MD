@@ -1,4 +1,37 @@
 # 202330219 안상현
+# 10월 17일(8주차 보강)
+## Hydration
+- 서버에서 렌더링된 HTML에 클라이언트 측 JavaScript를 연결해,  
+상호작용이 가능한 React 컴포넌트로 활성화하는 과정
+
+## Server Component
+- 서버에서 실행되어 데이터를 처리하고 HTML을 생성하는 빠른 컴포넌트 
+```tsx
+// Server Component
+export default async function Page() {
+  const data = await getData(); // 서버에서 실행 가능
+  return <div>{data.title}</div>;
+}
+```
+
+## Client Component
+- 브라우저에서 실행되어 상태 관리와 사용자 상호작용을 담당하는 컴포넌트
+```jsx
+// Client Component
+'use client';
+import { useState } from 'react';
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+  return (
+    <button 
+      onClick={() => setCount(count + 1)}
+    >
+      Count: {count}
+    <button>
+  );
+}
+```
 
 # 10월 01일(6주차)
 ## generateStaticParams
