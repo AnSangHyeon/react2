@@ -1,5 +1,38 @@
 # 202330219 안상현
 # 10월 22일(9주차)
+## React context
+
+  - ### 개념
+    - context는 컴포넌트 트리 전역에 데이터를 전달하기 위한 React 기능이다.  
+    - props를 단계별로 전달하지 않고 하위 컴포넌트에서 직접 값을 읽을 수 있다.
+
+  - ### 주요 구성
+    - createContext: context 생성
+    - Provider: 하위 트리에 값 전달
+    - useContext: context 값 사용
+
+  - ### 예시
+    ```tsx
+      import React, { createContext, useContext } from 'react';
+
+      const ThemeContext = createContext('light');
+
+      function App() {
+        return (
+          <ThemeContext.Provider value="dark">
+            <Toolbar />
+          </ThemeContext.Provider>
+        );
+      }
+
+      function Toolbar() {
+        const theme = useContext(ThemeContext);
+        return <div>{theme}</div>;
+      }
+
+      export default App;
+    ```
+
 ## interleaving
   - ## 개념
     - interleaving은 서버 컴포넌트와 클라이언트 컴포넌트가  
