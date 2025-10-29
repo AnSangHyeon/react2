@@ -1,4 +1,41 @@
 # 202330219 안상현
+
+# 10월 29일(10주차)
+# 외부(서드 파티) & Context Provider 정리
+
+## 1. 외부(서드 파티)
+- 외부 라이브러리나 패키지를 의미
+- 프로젝트에 직접 작성한 코드가 아닌, 다른 개발자가 만든 코드
+- 예시:
+  - `axios` -> HTTP 요청 라이브러리
+  - `swiper` -> 슬라이더/캐러셀 라이브러리
+  - `react-icons` -> 아이콘 라이브러리
+- 장점:
+  - 시간 절약
+  - 검증된 기능 사용 가능
+- 단점:
+  - 의존성 관리 필요
+  - 버전 충돌 가능
+
+## 2. Context Provider
+- React에서 상태를 전역적으로 관리하고 하위 컴포넌트에 전달하는 방법
+- `React.createContext()`로 생성
+- `Context.Provider`를 통해 값(value) 전달
+- 하위 컴포넌트에서 `useContext`로 사용
+- 예시:
+  ```javascript
+  // Context 생성
+  const UserContext = React.createContext(null);
+
+  // Provider 사용
+  <UserContext.Provider value={user}>
+    <App />
+  </UserContext.Provider>
+
+  // 하위 컴포넌트에서 사용
+  const user = useContext(UserContext);
+  ```
+
 # 10월 22일(9주차)
 ## React context
 
