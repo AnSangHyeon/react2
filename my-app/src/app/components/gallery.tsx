@@ -18,7 +18,12 @@ export default function Gallery() {
     <div>
       <button onClick={() => setIsOpen(true)}>View pictures</button>
       {/* Works, since Carousel is used within a Client Component */}
-      {isOpen && <Carousel items={items} />}
+      { 
+        isOpen && 
+        <Carousel 
+          items={items} 
+        />
+      }
     </div>
   )
 }

@@ -1,5 +1,78 @@
 # 202330219 안상현
 
+# 11월 5일 (11주차)
+
+## fetch()
+  - `fetch()`는 JavaScript에서 네트워크 요청(HTTP 요청)을   
+  보내기 위한 내장 함수
+  - 주로 API 서버로부터 데이터를 가져오거나(`GET`),  
+  데이터를 전송(`POST`, `PUT`, `DELETE`)할 때 사용  
+  - `fetch()`는 Promise를 반환하므로,  
+  `.then()` 또는 `async/await` 문법으로 결과를 처리할 수 있음.
+
+
+## React Suspense 컴포넌트
+  - Suspense는 React에서 비동기 작업(데이터 로딩 등)이  
+  완료될 때까지 컴포넌트를 잠시 대기 상태로 두고,  
+  그동안 대체 UI(로딩 화면 등) 를 보여주는 기능  
+  - 예제
+    ```tsx
+      <Suspense fallback={<p>로딩 중...</p>}>
+        <DataComponent />
+      </Suspense>
+    ```
+
+- ### 데이터 가져오기 (Fetching Data)
+    - 웹 애플리케이션이 외부 서버(API 등)에서  
+    데이터를 요청하고 받아오는 과정
+    - Next.js에서는 렌더링 시점에 따라 데이터를  
+    가져오는 위치(서버/클라이언트)가 다름
+
+---
+
+- ### 1. 서버 사이드 렌더링 (Server Side Rendering, SSR)
+  - 요청이 들어올 때마다 서버에서 데이터를 가져와 HTML을 생성     
+  항상 최신 데이터 표시 가능, 하지만 요청마다 렌더링되어 느릴 수 있음
+  - 예제: 
+    ```tsx
+    export async function getServerSideProps() {
+      const res = await fetch('https://api.example.com/data')
+      const data = await res.json()
+      return { props: { data } }
+    }
+    ```
+
+- ### 2. 정적 사이트 생성 (Static Site Generation, SSG)
+  - 빌드 시점에 데이터를 미리 가져와 정적 HTML을 생성  
+  속도가 빠르고 서버 부하가 적지만, 실시간 데이터 반영이 어려움
+  - 예제:
+    ```tsx
+      export async function getStaticProps() {
+        const res = await fetch('https://api.example.com/data')
+        const data = await res.json()
+        return { props: { data }, revalidate: 60 }
+      }
+    ```
+
+- ### 3. 클라이언트 사이드 렌더링 (Client Side Rendering, CSR)
+  - 페이지 로드 후 브라우저에서 데이터를 가져옴    
+  상호작용이 많은 페이지에 적합하지만 SEO에는 불리함
+  - 예제:
+    ```tsx
+      'use client'
+      import { useEffect, useState } from 'react'
+
+      export default function Page() {
+        const [data, setData] = useState(null)
+        useEffect(() => {
+          fetch('https://api.example.com/data')
+            .then(res => res.json())
+            .then(setData)
+        }, [])
+        return <pre>{JSON.stringify(data, null, 2)}</pre>
+      }
+    ```
+
 # 10월 29일(10주차)
 # 외부(서드 파티) & Context Provider 정리
 
