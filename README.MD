@@ -1,4 +1,48 @@
 # 202330219 안상현
+# 11월 12일 (12주차)
+## 스트리밍 (Streaming)
+- `await`을 사용해 부분적으로 데이터를 받으면서   
+초기 화면 렌더링 속도를 높임.
+- `app` 디렉토리와 React Server Components를  
+활용해 스트리밍 방식으로 UI를 렌더링 가능.
+- 예시:
+    ```tsx
+    export default async function Page() {
+      const data = fetchData(); // 데이터 fetch 시작
+      return (
+        <div>
+          <Suspense fallback={<p>Loading...</p>}>
+            <DataComponent promise={data} />
+          </Suspense>
+        </div>
+      );
+    }
+    ```
+## 순차적 데이터 fetch
+- 여러 API를 순차적으로 호출해야 할 때 await를 차례대로 사용.
+- 예시:
+  ```tsx
+    export default async function Page() {
+      const user = await fetch('/api/user').then(res => res.json());
+      const posts = await fetch(`/api/posts?userId=${user.id}`).then(res => res.json());
+      return (
+        <div>
+          <h1>{user.name}'s Posts</h1>
+          {posts.map(post => <p key={post.id}>{post.title}</p>)}
+        </div>
+      );
+    }
+  ```
+
+## 문서 코드 수정 및 라이브러리 생성
+- lib 폴더를 만들어 공용 함수, API 호출, 헬퍼 함수 등을 관리.
+- 예시:
+  ```tsx
+    export async function fetchUser(userId: string) {
+      const res = await fetch(`/api/user/${userId}`);
+      return res.json();
+    }
+  ```
 
 # 11월 5일 (11주차)
 
