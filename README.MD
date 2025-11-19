@@ -1,4 +1,61 @@
 # 202330219 안상현
+
+# 11월 19일 (13주차)
+## 스타일 우선순위
+```tsx
+// 먼저 적용된 스타일보다 후에 적용한 스타일이 적용된다 
+// 선물과 선물포장지라 생각하면 편함
+<button className={`${styles.primary} ${className ?? ''}`} />
+```
+
+## Tailwind CSS 개념
+- Tailwind CSS는 유틸리티 클래스 기반의 CSS 프레임워크로, HTML 클래스만으로 스타일을 빠르게 작성할 수 있음
+```tsx
+// import 
+@import "tailwindcss";
+```
+- 특징
+  - 미리 정의된 유틸리티 클래스로 스타일 적용 (`text-center`, `bg-blue-500` 등)
+  - 반응형 디자인 지원 (`md:text-lg` 등)
+  - 커스텀 테마와 설정 가능 (`tailwind.config.js`)
+  - CSS 작성 없이 빠른 프로토타이핑 가능
+
+- 장점
+  - 생산성 향상
+  - 일관된 디자인 시스템 구축 용이
+  - 불필요한 CSS 제거(PurgeCSS)로 번들 용량 최소화
+
+## Bootstrap 컨테이너(Container) 개념
+```tsx
+// import
+import 'bootstrap/dist/css/bootstrap.css'
+```
+- Bootstrap에서 컨테이너는 페이지 콘텐츠의 너비를 제한하고 중앙 정렬하는 역할을 함
+
+- `container` : 반응형 고정 폭, 브라우저 크기에 따라 최대 너비 조정
+- `container-fluid` : 항상 전체 화면 너비 사용
+- `container-{breakpoint}` : 특정 화면 크기 이상에서 고정 폭 적용 (예: `container-md`)
+
+- 역할
+  - 콘텐츠 중앙 정렬
+  - 여백과 패딩 관리
+  - 반응형 그리드 레이아웃 기반 제공
+
+## Sass(Syntactically Awesome Stylesheets) 개념
+- Sass는 CSS를 더 효율적이고 체계적으로 작성할 수 있게 해주는 CSS 전처리기임
+
+- 특징
+  - 변수(Variables) 사용 가능 (`$primary-color: #007bff;`)
+  - 중첩(Nesting) 지원으로 구조화된 스타일 작성
+  - 믹스인(Mixins)과 함수(Function)로 재사용 가능
+  - 상속(Extend)으로 코드 중복 최소화
+  - CSS로 컴파일되어 브라우저에서 사용 가능
+
+- 장점
+  - 코드 재사용성 향상
+  - 유지보수 용이
+  - 대규모 프로젝트 스타일 관리에 적합
+
 # 11월 12일 (12주차)
 ## 스트리밍 (Streaming)
 - `await`을 사용해 부분적으로 데이터를 받으면서   

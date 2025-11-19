@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 html[data-theme='light'] {
   background: #fff;
   color: #000;
