@@ -1,5 +1,45 @@
 # 202330219 안상현
 
+# 11월 26일 (14주차)
+## Docker
+- 애플리케이션을 컨테이너라는 독립된 환경에 담아 어디서든 동일하게 실행할 수 있게 해주는 플랫폼  
+- 개발, 배포 환경 차이로 인한 문제를 줄이고, 앱 실행에 필요한 모든 요소(코드, 라이브러리, 설정)를 함께 패키징해 관리함
+
+## 구글폰트
+```tsx
+import Image from "next/image";
+// 구글폰트 가져오기(Snake_Case로)
+import {Nanum_Pen_Script} from "next/font/google"
+
+const geist = Nanum_Pen_Script({
+  subsets: ['latin'],
+  weight: '400'
+})
+
+export default function NextImagePage() {
+  return (
+    <>
+      <Image 
+        className="dark:invert"
+        src="/test.png"
+        alt="Picture of the author"
+        width={360}
+        height={218}
+      />
+      {/* 클래스이름으로 가져오기 */}
+      <p className={`p4 text-4xl ${geist.className}`}>한글 나눔 펜 스크립트 폰트가 적용된 블로그2 페이지입니다.</p>
+    </>
+  );
+}
+```
+
+## webP
+- 구글이 개발한 이미지 포맷으로, 
+  JPG나 PNG보다 파일 크기를 더 작게 유지하면서도 비슷한 화질을 제공하는 것이 특징  
+- 손실 압축·무손실 압축 모두 지원하며, 
+  투명(알파 채널)도 사용할 수 있어 웹 페이지 로딩 속도를 개선하는 데 자주 쓰임
+
+
 # 11월 19일 (13주차)
 ## 스타일 우선순위
 ```tsx
