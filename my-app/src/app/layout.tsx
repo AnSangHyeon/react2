@@ -20,6 +20,7 @@ export default function RootLayout({
               <Link href={"/blog"} className="mr-4 text-blue-500">blog</Link>&nbsp; | &nbsp;
               <Link href={"/carousel"} className="mr-4 text-blue-500">carousel</Link>&nbsp; | &nbsp;
               <Link href={"/artist"} className="mr-4 text-blue-500">artist</Link>&nbsp; | &nbsp;
+              <Link href={"/nextImage"} className="mr-4 text-blue-500">nextImage && 구글폰트</Link>&nbsp; | &nbsp;
               <ThemeStatus />
             </header>
             {children}
