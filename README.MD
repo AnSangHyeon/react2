@@ -1,5 +1,289 @@
 # 202330219 안상현
+
+# 11월 26일 (14주차)
+## Docker
+- 애플리케이션을 컨테이너라는 독립된 환경에 담아 어디서든 동일하게 실행할 수 있게 해주는 플랫폼  
+- 개발, 배포 환경 차이로 인한 문제를 줄이고, 앱 실행에 필요한 모든 요소(코드, 라이브러리, 설정)를 함께 패키징해 관리함
+
+## 구글폰트
+```tsx
+import Image from "next/image";
+// 구글폰트 가져오기(Snake_Case로)
+import {Nanum_Pen_Script} from "next/font/google"
+
+const geist = Nanum_Pen_Script({
+  subsets: ['latin'],
+  weight: '400'
+})
+
+export default function NextImagePage() {
+  return (
+    <>
+      <Image 
+        className="dark:invert"
+        src="/test.png"
+        alt="Picture of the author"
+        width={360}
+        height={218}
+      />
+      {/* 클래스이름으로 가져오기 */}
+      <p className={`p4 text-4xl ${geist.className}`}>한글 나눔 펜 스크립트 폰트가 적용된 블로그2 페이지입니다.</p>
+    </>
+  );
+}
+```
+
+## webP
+- 구글이 개발한 이미지 포맷으로, 
+  JPG나 PNG보다 파일 크기를 더 작게 유지하면서도 비슷한 화질을 제공하는 것이 특징  
+- 손실 압축·무손실 압축 모두 지원하며, 
+  투명(알파 채널)도 사용할 수 있어 웹 페이지 로딩 속도를 개선하는 데 자주 쓰임
+
+
+# 11월 19일 (13주차)
+## 스타일 우선순위
+```tsx
+// 먼저 적용된 스타일보다 후에 적용한 스타일이 적용된다 
+// 선물과 선물포장지라 생각하면 편함
+<button className={`${styles.primary} ${className ?? ''}`} />
+```
+
+## Tailwind CSS 개념
+- Tailwind CSS는 유틸리티 클래스 기반의 CSS 프레임워크로, HTML 클래스만으로 스타일을 빠르게 작성할 수 있음
+```tsx
+// import 
+@import "tailwindcss";
+```
+- 특징
+  - 미리 정의된 유틸리티 클래스로 스타일 적용 (`text-center`, `bg-blue-500` 등)
+  - 반응형 디자인 지원 (`md:text-lg` 등)
+  - 커스텀 테마와 설정 가능 (`tailwind.config.js`)
+  - CSS 작성 없이 빠른 프로토타이핑 가능
+
+- 장점
+  - 생산성 향상
+  - 일관된 디자인 시스템 구축 용이
+  - 불필요한 CSS 제거(PurgeCSS)로 번들 용량 최소화
+
+## Bootstrap 컨테이너(Container) 개념
+```tsx
+// import
+import 'bootstrap/dist/css/bootstrap.css'
+```
+- Bootstrap에서 컨테이너는 페이지 콘텐츠의 너비를 제한하고 중앙 정렬하는 역할을 함
+
+- `container` : 반응형 고정 폭, 브라우저 크기에 따라 최대 너비 조정
+- `container-fluid` : 항상 전체 화면 너비 사용
+- `container-{breakpoint}` : 특정 화면 크기 이상에서 고정 폭 적용 (예: `container-md`)
+
+- 역할
+  - 콘텐츠 중앙 정렬
+  - 여백과 패딩 관리
+  - 반응형 그리드 레이아웃 기반 제공
+
+## Sass(Syntactically Awesome Stylesheets) 개념
+- Sass는 CSS를 더 효율적이고 체계적으로 작성할 수 있게 해주는 CSS 전처리기임
+
+- 특징
+  - 변수(Variables) 사용 가능 (`$primary-color: #007bff;`)
+  - 중첩(Nesting) 지원으로 구조화된 스타일 작성
+  - 믹스인(Mixins)과 함수(Function)로 재사용 가능
+  - 상속(Extend)으로 코드 중복 최소화
+  - CSS로 컴파일되어 브라우저에서 사용 가능
+
+- 장점
+  - 코드 재사용성 향상
+  - 유지보수 용이
+  - 대규모 프로젝트 스타일 관리에 적합
+
+# 11월 12일 (12주차)
+## 스트리밍 (Streaming)
+- `await`을 사용해 부분적으로 데이터를 받으면서   
+초기 화면 렌더링 속도를 높임.
+- `app` 디렉토리와 React Server Components를  
+활용해 스트리밍 방식으로 UI를 렌더링 가능.
+- 예시:
+    ```tsx
+    export default async function Page() {
+      const data = fetchData(); // 데이터 fetch 시작
+      return (
+        <div>
+          <Suspense fallback={<p>Loading...</p>}>
+            <DataComponent promise={data} />
+          </Suspense>
+        </div>
+      );
+    }
+    ```
+## 순차적 데이터 fetch
+- 여러 API를 순차적으로 호출해야 할 때 await를 차례대로 사용.
+- 예시:
+  ```tsx
+    export default async function Page() {
+      const user = await fetch('/api/user').then(res => res.json());
+      const posts = await fetch(`/api/posts?userId=${user.id}`).then(res => res.json());
+      return (
+        <div>
+          <h1>{user.name}'s Posts</h1>
+          {posts.map(post => <p key={post.id}>{post.title}</p>)}
+        </div>
+      );
+    }
+  ```
+
+## 문서 코드 수정 및 라이브러리 생성
+- lib 폴더를 만들어 공용 함수, API 호출, 헬퍼 함수 등을 관리.
+- 예시:
+  ```tsx
+    export async function fetchUser(userId: string) {
+      const res = await fetch(`/api/user/${userId}`);
+      return res.json();
+    }
+  ```
+
+# 11월 5일 (11주차)
+
+## fetch()
+  - `fetch()`는 JavaScript에서 네트워크 요청(HTTP 요청)을   
+  보내기 위한 내장 함수
+  - 주로 API 서버로부터 데이터를 가져오거나(`GET`),  
+  데이터를 전송(`POST`, `PUT`, `DELETE`)할 때 사용  
+  - `fetch()`는 Promise를 반환하므로,  
+  `.then()` 또는 `async/await` 문법으로 결과를 처리할 수 있음.
+
+
+## React Suspense 컴포넌트
+  - Suspense는 React에서 비동기 작업(데이터 로딩 등)이  
+  완료될 때까지 컴포넌트를 잠시 대기 상태로 두고,  
+  그동안 대체 UI(로딩 화면 등) 를 보여주는 기능  
+  - 예제
+    ```tsx
+      <Suspense fallback={<p>로딩 중...</p>}>
+        <DataComponent />
+      </Suspense>
+    ```
+
+- ### 데이터 가져오기 (Fetching Data)
+    - 웹 애플리케이션이 외부 서버(API 등)에서  
+    데이터를 요청하고 받아오는 과정
+    - Next.js에서는 렌더링 시점에 따라 데이터를  
+    가져오는 위치(서버/클라이언트)가 다름
+
+---
+
+- ### 1. 서버 사이드 렌더링 (Server Side Rendering, SSR)
+  - 요청이 들어올 때마다 서버에서 데이터를 가져와 HTML을 생성     
+  항상 최신 데이터 표시 가능, 하지만 요청마다 렌더링되어 느릴 수 있음
+  - 예제: 
+    ```tsx
+    export async function getServerSideProps() {
+      const res = await fetch('https://api.example.com/data')
+      const data = await res.json()
+      return { props: { data } }
+    }
+    ```
+
+- ### 2. 정적 사이트 생성 (Static Site Generation, SSG)
+  - 빌드 시점에 데이터를 미리 가져와 정적 HTML을 생성  
+  속도가 빠르고 서버 부하가 적지만, 실시간 데이터 반영이 어려움
+  - 예제:
+    ```tsx
+      export async function getStaticProps() {
+        const res = await fetch('https://api.example.com/data')
+        const data = await res.json()
+        return { props: { data }, revalidate: 60 }
+      }
+    ```
+
+- ### 3. 클라이언트 사이드 렌더링 (Client Side Rendering, CSR)
+  - 페이지 로드 후 브라우저에서 데이터를 가져옴    
+  상호작용이 많은 페이지에 적합하지만 SEO에는 불리함
+  - 예제:
+    ```tsx
+      'use client'
+      import { useEffect, useState } from 'react'
+
+      export default function Page() {
+        const [data, setData] = useState(null)
+        useEffect(() => {
+          fetch('https://api.example.com/data')
+            .then(res => res.json())
+            .then(setData)
+        }, [])
+        return <pre>{JSON.stringify(data, null, 2)}</pre>
+      }
+    ```
+
+# 10월 29일(10주차)
+# 외부(서드 파티) & Context Provider 정리
+
+## 1. 외부(서드 파티)
+- 외부 라이브러리나 패키지를 의미
+- 프로젝트에 직접 작성한 코드가 아닌, 다른 개발자가 만든 코드
+- 예시:
+  - `axios` -> HTTP 요청 라이브러리
+  - `swiper` -> 슬라이더/캐러셀 라이브러리
+  - `react-icons` -> 아이콘 라이브러리
+- 장점:
+  - 시간 절약
+  - 검증된 기능 사용 가능
+- 단점:
+  - 의존성 관리 필요
+  - 버전 충돌 가능
+
+## 2. Context Provider
+- React에서 상태를 전역적으로 관리하고 하위 컴포넌트에 전달하는 방법
+- `React.createContext()`로 생성
+- `Context.Provider`를 통해 값(value) 전달
+- 하위 컴포넌트에서 `useContext`로 사용
+- 예시:
+  ```javascript
+  // Context 생성
+  const UserContext = React.createContext(null);
+
+  // Provider 사용
+  <UserContext.Provider value={user}>
+    <App />
+  </UserContext.Provider>
+
+  // 하위 컴포넌트에서 사용
+  const user = useContext(UserContext);
+  ```
+
 # 10월 22일(9주차)
+## React context
+
+  - ### 개념
+    - context는 컴포넌트 트리 전역에 데이터를 전달하기 위한 React 기능이다.  
+    - props를 단계별로 전달하지 않고 하위 컴포넌트에서 직접 값을 읽을 수 있다.
+
+  - ### 주요 구성
+    - createContext: context 생성
+    - Provider: 하위 트리에 값 전달
+    - useContext: context 값 사용
+
+  - ### 예시
+    ```tsx
+      import React, { createContext, useContext } from 'react';
+
+      const ThemeContext = createContext('light');
+
+      function App() {
+        return (
+          <ThemeContext.Provider value="dark">
+            <Toolbar />
+          </ThemeContext.Provider>
+        );
+      }
+
+      function Toolbar() {
+        const theme = useContext(ThemeContext);
+        return <div>{theme}</div>;
+      }
+
+      export default App;
+    ```
+
 ## interleaving
   - ## 개념
     - interleaving은 서버 컴포넌트와 클라이언트 컴포넌트가  
